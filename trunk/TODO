@@ -1,0 +1,3 @@
+install /usr/lib/modules/3.13.0-1-latest-stable/build/ -> /usr/src/linux-3.13.0-1-latest-stable/
+make symlink /usr/lib/modules/3.13.0-1-latest-stable/build to /usr/src/linux-3.13.0-1-latest-stable/
+
