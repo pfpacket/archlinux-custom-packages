@@ -9,7 +9,7 @@ _kernel_minor=0
 _kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -29,23 +29,25 @@ source=(
         '0005-sunrpc-add-an-info-file-for-the-dummy-gssd-pipe.patch'
         '0006-rpc_pipe-fix-cleanup-of-dummy-gssd-directory-when-no.patch'
         '0001-syscalls.h-use-gcc-alias-instead-of-assembler-aliase.patch'
+        'i8042-fix-aliases.patch'
         )
 md5sums=(
-         #'ba4468d313adfaf22368add7f58204aa'
-         #'035bb27dac306f5c028d96cad14bb249'
-         'SKIP'
-         'SKIP'
-         'eb14dcfd80c00852ef81ded6e826826a'
-         '98beb36f9b8cf16e58de2483ea9985e3'
-         '989dc54ff8b179b0f80333cc97c0d43f'
-         'dd2adb99cd3feed6f11022562901965c'
-         'b00cc399d3797cb0793e18b5bf387a50'
-         '7cbd2349cdf046acc37b652c06ba36be'
-         '10dbaf863e22b2437e68f9190d65c861'
-         'd5907a721b97299f0685c583499f7820'
-         'a724515b350b29c53f20e631c6cf9a14'
-         'e6fa278c092ad83780e2dd0568e24ca6'
-         )
+        #'ba4468d313adfaf22368add7f58204aa'
+        #'035bb27dac306f5c028d96cad14bb249'
+        'SKIP'
+        'SKIP'
+        'eb14dcfd80c00852ef81ded6e826826a'
+        '98beb36f9b8cf16e58de2483ea9985e3'
+        '989dc54ff8b179b0f80333cc97c0d43f'
+        'dd2adb99cd3feed6f11022562901965c'
+        'b00cc399d3797cb0793e18b5bf387a50'
+        '7cbd2349cdf046acc37b652c06ba36be'
+        '10dbaf863e22b2437e68f9190d65c861'
+        'd5907a721b97299f0685c583499f7820'
+        'a724515b350b29c53f20e631c6cf9a14'
+        'e6fa278c092ad83780e2dd0568e24ca6'
+        '47fc9cc705752f1f16db23383504e194'
+        )
 
 _kernelname=${pkgbase#linux}
 _git_tree_path="/home/devm33/Develop/kernel_dev/linux-stable"
@@ -94,6 +96,10 @@ prepare() {
 
   # Fix symbols: Revert http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=83460ec8dcac14142e7860a01fa59c267ac4657c
   patch -Rp1 -i "${srcdir}/0001-syscalls.h-use-gcc-alias-instead-of-assembler-aliase.patch"
+
+  # Fix i8042 aliases
+  patch -p1 -i "${srcdir}/i8042-fix-aliases.patch"
+
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
