@@ -5,11 +5,11 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-latest-stable
 _kernel_major=3.13
-_kernel_minor=0
+_kernel_minor=1
 _kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -61,7 +61,7 @@ prepare() {
   ln -s "${_git_tree_path}" "${srcdir}/${_srcname}"
   cd "${srcdir}/${_srcname}"
   git fetch --all --prune
-  git reset --hard v${_kernel_major}
+  git reset --hard v${_kernel_version}
 
 
   # add upstream patch
