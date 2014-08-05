@@ -1,0 +1,4 @@
+linux.install.pkg
+*.pkg.tar.xz
+src/
+pkg/
