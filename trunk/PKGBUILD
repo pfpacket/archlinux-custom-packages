@@ -5,12 +5,12 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-local       # Build kernel with a different name
 _kernel_major=3.16
-_kernel_minor=0
-_kernel_version=${_kernel_major}
-#_kernel_version=${_kernel_major}.${_kernel_minor}
+_kernel_minor=1
+#_kernel_version=${_kernel_major}
+_kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -21,11 +21,13 @@ source=(# the main kernel config files
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
         'change-default-console-loglevel.patch'
+        'compal-laptop-hwmon-fix.patch'
         )
-sha256sums=('487dc1fd428b5793f4f5216fd76bd3640b12c50ea52c6fb909da24baf3612d9b'
+sha256sums=('SKIP'
             'SKIP'
             'f0d90e756f14533ee67afda280500511a62465b4f76adcc5effa95a40045179c'
-            '1256b241cd477b265a3c2d64bdc19ffe3c9bbcee82ea3994c590c2c76e767d99')
+            '1256b241cd477b265a3c2d64bdc19ffe3c9bbcee82ea3994c590c2c76e767d99'
+            'f36f61a0a72bcb0a9c04264343503bfbf927c9ea0db819e66734a3933b060588')
 
 _kernelname=${pkgbase#linux}
 _git_tree_path="/home/devm33/Develop/kernel_dev/linux-stable"
@@ -49,6 +51,9 @@ prepare() {
   # remove this when a Kconfig knob is made available by upstream
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   patch -p1 -i "${srcdir}/change-default-console-loglevel.patch"
+
+  # #41458 fix hwmon for compal-laptop module
+  patch -p1 -i "${srcdir}/compal-laptop-hwmon-fix.patch"
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
