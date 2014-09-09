@@ -5,7 +5,7 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-local       # Build kernel with a different name
 _kernel_major=3.16
-_kernel_minor=1
+_kernel_minor=2
 #_kernel_version=${_kernel_major}
 _kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
@@ -39,7 +39,7 @@ prepare() {
   ln -s "${_git_tree_path}" "${srcdir}/${_srcname}"
   cd "${srcdir}/${_srcname}"
   git fetch --all --prune
-  git reset --hard v${_kernel_version}
+  git checkout v${_kernel_version}
 
   # add upstream patch
   #patch -p1 -i "${srcdir}/patch-${pkgver}"
