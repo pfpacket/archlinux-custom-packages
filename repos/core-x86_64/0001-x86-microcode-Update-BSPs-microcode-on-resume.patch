@@ -2,6 +2,8 @@ From fb86b97300d930b57471068720c52bfa8622eab7 Mon Sep 17 00:00:00 2001
 From: Borislav Petkov <bp@suse.de>
 Date: Tue, 18 Nov 2014 10:46:57 +0100
 Subject: [PATCH] x86, microcode: Update BSPs microcode on resume
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 In the situation when we apply early microcode but do *not* apply late
 microcode, we fail to update the BSP's microcode on resume because we
