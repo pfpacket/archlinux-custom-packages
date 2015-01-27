@@ -5,12 +5,12 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-latest-stable  # Build kernel with a different name
 _kernel_major=3.18
-_kernel_minor=2
+_kernel_minor=3
 #_kernel_version=${_kernel_major}
 _kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
