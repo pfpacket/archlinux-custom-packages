@@ -5,7 +5,7 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-latest-stable  # Build kernel with a different name
 _kernel_major=3.18
-_kernel_minor=3
+_kernel_minor=4
 #_kernel_version=${_kernel_major}
 _kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
@@ -21,13 +21,11 @@ source=(# the main kernel config files
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
         'change-default-console-loglevel.patch'
-        '0001-drm-i915-Disallow-pin-ioctl-completely-for-kms-drive.patch'
         )
 sha256sums=('SKIP'
             'SKIP'
             'f0d90e756f14533ee67afda280500511a62465b4f76adcc5effa95a40045179c'
             '1256b241cd477b265a3c2d64bdc19ffe3c9bbcee82ea3994c590c2c76e767d99'
-            '0bda45a3ef0f2780bbe588f2e53ab2b79814d29e9c6fc7bfff3b0dbdaa9e710d'
             )
 
 _kernelname=${pkgbase#linux}
@@ -47,9 +45,6 @@ prepare() {
 
   # add latest fixes from stable queue, if needed
   # http://git.kernel.org/?p=linux/kernel/git/stable/stable-queue.git
-
-  # fix #43143
-  patch -p1 -i "${srcdir}/0001-drm-i915-Disallow-pin-ioctl-completely-for-kms-drive.patch"
   
   # set DEFAULT_CONSOLE_LOGLEVEL to 4 (same value as the 'quiet' kernel param)
   # remove this when a Kconfig knob is made available by upstream
