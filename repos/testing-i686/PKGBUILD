@@ -2,43 +2,41 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
 
-#pkgbase=linux               # Build stock -ARCH kernel
-pkgbase=linux-latest-stable  # Build kernel with a different name
-_kernel_major=3.19
-_kernel_minor=1
-_kernel_version=${_kernel_major}
-#_kernel_version=${_kernel_major}.${_kernel_minor}
-_srcname=linux-${_kernel_version}
-pkgver=${_kernel_version}
+pkgbase=linux               # Build stock -ARCH kernel
+#pkgbase=linux-custom       # Build kernel with a different name
+_srcname=linux-3.19
+pkgver=3.19
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc')
 options=('!strip')
-source=(# the main kernel config files
+source=("https://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
+        "https://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.sign"
+        #"https://www.kernel.org/pub/linux/kernel/v3.x/patch-${pkgver}.xz"
+        #"https://www.kernel.org/pub/linux/kernel/v3.x/patch-${pkgver}.sign"
+        # the main kernel config files
         'config' 'config.x86_64'
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
         'change-default-console-loglevel.patch'
         )
-sha256sums=('SKIP'
+sha256sums=('be42511fe5321012bb4a2009167ce56a9e5fe362b4af43e8c371b3666859806c'
             'SKIP'
+            '704a479de77c9022e5c7a797d2cd7fd0e4ba1f52f9039ec8a80efd57f7e9f0d8'
+            '59830f47c1be39f874640d762dca55f972aca549a7a65ba2f1dac184251dabb2'
             'f0d90e756f14533ee67afda280500511a62465b4f76adcc5effa95a40045179c'
-            '1256b241cd477b265a3c2d64bdc19ffe3c9bbcee82ea3994c590c2c76e767d99'
-            )
+            '1256b241cd477b265a3c2d64bdc19ffe3c9bbcee82ea3994c590c2c76e767d99')
+validpgpkeys=(
+              'ABAF11C65A2970B130ABE3C479BE3E4300411886' # Linus Torvalds
+              '647F28654894E3BD457199BE38DBBDC86092693E' # Greg Kroah-Hartman
+             )
 
 _kernelname=${pkgbase#linux}
-_git_tree_path="/home/devm33/Develop/kernel_dev/linux-stable"
 
 prepare() {
-  #cd "${srcdir}/${_srcname}"
-
-  rm -f "${srcdir}/${_srcname}"
-  ln -s "${_git_tree_path}" "${srcdir}/${_srcname}"
   cd "${srcdir}/${_srcname}"
-  git fetch --all --prune
-  git checkout v${_kernel_version}
 
   # add upstream patch
   #patch -p1 -i "${srcdir}/patch-${pkgver}"
