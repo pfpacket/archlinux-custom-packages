@@ -5,12 +5,12 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-latest-stable  # Build kernel with a different name
 _kernel_major=3.19
-_kernel_minor=1
+_kernel_minor=2
 #_kernel_version=${_kernel_major}
 _kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -21,11 +21,13 @@ source=(# the main kernel config files
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
         'change-default-console-loglevel.patch'
+        '0001-drm-i915-Make-sample_c-messages-go-faster-on-Haswell.patch'
         )
 sha256sums=('SKIP'
             'SKIP'
             'f0d90e756f14533ee67afda280500511a62465b4f76adcc5effa95a40045179c'
             '1256b241cd477b265a3c2d64bdc19ffe3c9bbcee82ea3994c590c2c76e767d99'
+            'b7a5f6509dcc598e090ce02e6fbeb52e1223d581caa8adf1fbb955a59148da97'
             )
 
 _kernelname=${pkgbase#linux}
@@ -50,6 +52,9 @@ prepare() {
   # remove this when a Kconfig knob is made available by upstream
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   patch -p1 -i "${srcdir}/change-default-console-loglevel.patch"
+
+  # Intel Haswell grapics performance improvements patch
+  patch -p1 -i "${srcdir}/0001-drm-i915-Make-sample_c-messages-go-faster-on-Haswell.patch"
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
