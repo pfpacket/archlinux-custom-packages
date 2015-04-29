@@ -4,10 +4,10 @@
 
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-local  # Build kernel with a different name
-_kernel_major=3.18
-_kernel_minor=6
-#_kernel_version=${_kernel_major}
-_kernel_version=${_kernel_major}.${_kernel_minor}
+_kernel_major=4.0
+#_kernel_minor=1
+_kernel_version=${_kernel_major}
+#_kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
 pkgrel=1
@@ -29,7 +29,8 @@ sha256sums=('SKIP'
             )
 
 _kernelname=${pkgbase#linux}
-_git_tree_path="/home/devm33/Develop/kernel_dev/linux-stable"
+#_git_tree_path="/home/devm33/Develop/kernel_dev/linux-stable"
+_git_tree_path="/home/devm33/Develop/kernel_dev/linux"
 
 prepare() {
   #cd "${srcdir}/${_srcname}"
@@ -134,8 +135,6 @@ _package() {
   rm -f "${pkgdir}"/lib/modules/${_kernver}/{source,build}
   # remove the firmware
   rm -rf "${pkgdir}/lib/firmware"
-  # gzip -9 all modules to save 100MB of space
-  find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
   # make room for external modules
   ln -s "../extramodules-${_basekernel}${_kernelname:--ARCH}" "${pkgdir}/lib/modules/${_kernver}/extramodules"
   # add real version for building modules and running depmod from post_install/upgrade
