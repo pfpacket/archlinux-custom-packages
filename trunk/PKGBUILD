@@ -5,9 +5,9 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-local  # Build kernel with a different name
 _kernel_major=4.0
-#_kernel_minor=1
-_kernel_version=${_kernel_major}
-#_kernel_version=${_kernel_major}.${_kernel_minor}
+_kernel_minor=1
+#_kernel_version=${_kernel_major}
+_kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
 pkgrel=1
@@ -29,8 +29,7 @@ sha256sums=('SKIP'
             )
 
 _kernelname=${pkgbase#linux}
-#_git_tree_path="/home/devm33/Develop/kernel_dev/linux-stable"
-_git_tree_path="/home/devm33/Develop/kernel_dev/linux"
+_git_tree_path="/home/devm33/Develop/kernel_dev/linux-stable"
 
 prepare() {
   #cd "${srcdir}/${_srcname}"
