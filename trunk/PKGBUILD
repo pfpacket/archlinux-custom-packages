@@ -3,7 +3,7 @@
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
 
 #pkgbase=linux               # Build stock -ARCH kernel
-pkgbase=linux-local          # Build kernel with a different name
+pkgbase=linux-stable          # Build kernel with a different name
 _kernel_major=4.2
 _kernel_minor=5
 #_kernel_version=${_kernel_major}
