@@ -4,10 +4,10 @@
 
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-stable          # Build kernel with a different name
-_kernel_major=4.2
-_kernel_minor=5
-#_kernel_version=${_kernel_major}
-_kernel_version=${_kernel_major}.${_kernel_minor}
+_kernel_major=4.3
+#_kernel_minor=1
+_kernel_version=${_kernel_major}
+#_kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
 pkgver=${_kernel_version}
 pkgrel=1
@@ -40,7 +40,7 @@ prepare() {
   git checkout v${_kernel_version}
 
   # add upstream patch
-  #patch -p1 -i "${srcdir}/patch-${pkgver}"
+  # patch -p1 -i "${srcdir}/patch-${pkgver}"
 
   # add latest fixes from stable queue, if needed
   # http://git.kernel.org/?p=linux/kernel/git/stable/stable-queue.git
