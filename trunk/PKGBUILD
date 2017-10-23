@@ -5,7 +5,7 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-dist-sys  # Build kernel with a different name
 _kernel_major=4.13
-_kernel_minor=5
+_kernel_minor=9
 #_kernel_version=${_kernel_major}
 _kernel_version=${_kernel_major}.${_kernel_minor}
 _srcname=linux-${_kernel_version}
