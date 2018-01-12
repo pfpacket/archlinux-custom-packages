@@ -54,7 +54,7 @@ prepare() {
   # http://git.kernel.org/?p=linux/kernel/git/stable/stable-queue.git
 
   # https://bugs.archlinux.org/task/56207
-  patch -Np1 -i ../0001-platform-x86-hp-wmi-Fix-tablet-mode-detection-for-co.patch
+  patch -Np1 -i ${srcdir}/0001-platform-x86-hp-wmi-Fix-tablet-mode-detection-for-co.patch
 
   cp -Tf ${srcdir}/config .config
 
